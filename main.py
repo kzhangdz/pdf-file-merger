@@ -48,7 +48,11 @@ class MainPage(ttk.Frame):
         self.list_frame = ttk.Frame(self)
         self.file_names_listbox = FileNamesListbox(self.list_frame)
         self.file_names_listbox.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
-        self.button_section = ButtonSection(self.list_frame, on_add_click=self.browse_files)
+        self.button_section = ButtonSection(
+            self.list_frame, 
+            on_add_click=self.browse_files,
+            on_remove_click=self.remove_files
+        )
         self.button_section.pack(side=tk.RIGHT, padx=DEFAULT_PADDING)
         self.list_frame.pack(fill=tk.BOTH, expand=True)
 
@@ -75,6 +79,11 @@ class MainPage(ttk.Frame):
             for file in files:
                 self.file_names_listbox.file_names_listbox.insert(tk.END, file)
                 print("Adding", file)
+
+    def remove_files(self):
+        selected = self.file_names_listbox.get_selected_indices()
+        print(selected)
+        self.file_names_listbox.delete_items(selected)
 
     def merge_files(self, files: List[str], save_path: str):
 
@@ -204,6 +213,40 @@ class FileNamesListbox(ttk.Frame):
 
     def get_content(self):
         return self.file_names_listbox.get(0, tk.END)
+    
+    def get_selected_indices(self):
+        selected = []
+
+        for i in self.file_names_listbox.curselection():
+            selected.append(i)
+
+        return selected
+    
+    def get_selected(self):
+        
+        selected = []
+
+        for i in self.file_names_listbox.curselection():
+            selected.append(self.file_names_listbox.get(i))
+
+        return selected
+    
+    def delete_items(self, indices=None):
+        
+        # delete all
+        if indices == None:
+            self.file_names_listbox.delete(0, tk.END)
+        
+        # delete specific indices
+        elif indices:
+            # indices can change, so iterate from highest to lowest index
+            sorted_indices = sorted(indices, reverse=True)
+
+            for i in sorted_indices:
+                self.file_names_listbox.delete(i)
+
+        # delete nothing on an empty list
+        
 
 if __name__ == "__main__":
     main()
