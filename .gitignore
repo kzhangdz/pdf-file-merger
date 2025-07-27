@@ -1,0 +1,30 @@
+# Virtual environments
+venv/
+env/
+*.venv
+
+# Bytecode and compiled files
+*.pyc
+__pycache__/
+
+# IDE/Editor specific files
+.vscode/
+.idea/
+
+# Dependency management files
+Pipfile.lock
+poetry.lock
+
+# Log files
+*.log
+
+# Temporary files
+*.tmp
+*temp*
+
+# Configuration files with sensitive data
+.env
+
+# Build artifacts
+build/
+dist/
