@@ -4,6 +4,8 @@ from tkinter import ttk, filedialog
 from tkinterdnd2 import DND_FILES, TkinterDnD # used to allow drag and drop
 import sv_ttk # styling package
 
+from widgets.entry_with_placeholder import EntryWithPlaceholder
+
 from collections.abc import Callable
 from functools import partial # for callback functions in buttons, with arguments
 from pathlib import Path
@@ -152,7 +154,7 @@ class TargetFileSelectionBox(ttk.Frame):
         super().__init__(parent)
 
         # entry + Browse Button
-        self.entry = ttk.Entry(self) # TODO: need to be able to type the entry text
+        self.entry = EntryWithPlaceholder(self, placeholder="Choose Save Path")
         self.browse_button = ttk.Button(self, text="Browse", command=self.browse_file)
         self.browse_button.config(width=DEFAULT_BUTTON_WIDTH)
 
