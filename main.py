@@ -15,14 +15,13 @@ from typing import List, Dict
 DEFAULT_PADDING = 20
 DEFAULT_BUTTON_WIDTH = 6
 DEFAULT_FONT = "Arial"
-title_font = tkFont.Font(font=DEFAULT_FONT, size=12)
 
 def main():
     app = Application()
     app.mainloop()
 
 class Application(TkinterDnD.Tk): # can inherit, so our application itself is a tkinter Tk instance
-    
+
     def __init__(self):
         super().__init__()
 
@@ -56,7 +55,7 @@ class MainPage(ttk.Frame):
         self.bottom_frame = ttk.Frame(self)
         self.target_file_selection_box = TargetFileSelectionBox(self.bottom_frame)
         self.target_file_selection_box.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
-        self.merge_section = MergeSection(self.bottom_frame, lambda: self.merge_files(self.file_names_listbox.get_content(), self.target_file_selection_box.get_save_path()))
+        self.merge_section = MergeSection(self.bottom_frame, callback=lambda: self.merge_files(self.file_names_listbox.get_content(), self.target_file_selection_box.get_save_path()))
         self.merge_section.pack(side=tk.RIGHT)
         self.bottom_frame.pack(fill=tk.BOTH)
 
@@ -78,6 +77,14 @@ class MainPage(ttk.Frame):
                 print("Adding", file)
 
     def merge_files(self, files: List[str], save_path: str):
+
+        if len(files) == 0:
+            self.message.set("Please add PDF files to merge")
+            return
+
+        if save_path == "":
+            self.message.set("Please specify a save path")
+            return
         
         print("Merging Files")
         
@@ -117,7 +124,8 @@ class MessageSection(ttk.Frame):
     def __init__(self, parent, message, **kwargs):
         super().__init__(parent, **kwargs)
 
-        self.message_section = tk.Message(self, textvariable=message, width=300, font=title_font)
+        title_font = tkFont.Font(font=DEFAULT_FONT, size=12)
+        self.message_section = tk.Message(self, textvariable=message, width=600, font=title_font)
         self.message_section.pack(fill=tk.BOTH, pady=DEFAULT_PADDING/5)
 
 class MergeSection(ttk.Frame):
@@ -164,6 +172,7 @@ class FileNamesListbox(ttk.Frame):
         super().__init__(parent)
 
         # main listbox
+        title_font = tkFont.Font(font=DEFAULT_FONT, size=12)
         self.file_names_listbox = tk.Listbox(self, selectmode=tk.MULTIPLE, font=title_font)
         self.scrollbar = ttk.Scrollbar(self, orient=tk.VERTICAL)
 
