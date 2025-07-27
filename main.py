@@ -15,7 +15,7 @@ from typing import List, Dict
 #https://www.youtube.com/watch?v=VEdaDzI9rJM
 
 DEFAULT_PADDING = 20
-DEFAULT_BUTTON_WIDTH = 6
+DEFAULT_BUTTON_WIDTH = 7
 DEFAULT_FONT = "Arial"
 
 def main():
@@ -38,10 +38,6 @@ class Application(TkinterDnD.Tk): # can inherit, so our application itself is a 
 
         self.geometry("900x500")
     
-        # self.frame = InputForm(self)
-        # subsection of window, helps organize widgets and allows reusability
-        # self.frame.grid(row=0, column=0, sticky="nsew", padx=5, pady=5) # sticky, so our frame expands with the window
-
 class MainPage(ttk.Frame):
 
     def __init__(self, parent):

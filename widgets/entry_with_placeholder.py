@@ -21,6 +21,9 @@ class EntryWithPlaceholder(ttk.Entry):
         # set up the Entry using the created style.
         super().__init__(parent, style=self.style_name)
 
+        # TODO: the style seems to get overwritten by sv_ttk. doing a config on the foreground allows it to change
+        # self.config(foreground=color)
+
         self.bind("<FocusIn>", self.foc_in)
         self.bind("<FocusOut>", self.foc_out)
 
@@ -38,6 +41,7 @@ class EntryWithPlaceholder(ttk.Entry):
         if self.current_style == self.style_name:
             self.current_style = DEFAULT_STYLE_NAME
             self.config(style=DEFAULT_STYLE_NAME)
+            # self.config(foreground='white')
 
             self.delete('0', 'end')
 
