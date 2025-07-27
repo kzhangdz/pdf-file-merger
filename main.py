@@ -6,6 +6,7 @@ import sv_ttk # styling package
 
 from collections.abc import Callable
 from functools import partial # for callback functions in buttons, with arguments
+from pathlib import Path
 from pypdf import PdfWriter
 from typing import List, Dict
 
@@ -175,18 +176,22 @@ class FileNamesListbox(ttk.Frame):
 
         self.file_names_listbox.drop_target_register(DND_FILES)
         self.file_names_listbox.dnd_bind('<<Drop>>', self.drop_inside_list_box)
-        #self.file_names_listbox.dnd_bind('<<ListboxSelect>>', self.browse_files)
 
     def drop_inside_list_box(self, event):
         # get a list of file names. Helps handle cases with space in the file name
         files = self.tk.splitlist(event.data)
 
-        #TODO: add logic to only add PDFs
         #TODO: logic to not allow duplicates?
 
         for file in files:
-            self.file_names_listbox.insert(tk.END, file)
-            print("Adding", file)
+
+            file_extension = Path(file).suffix
+
+            if file_extension == ".pdf":
+                self.file_names_listbox.insert(tk.END, file)
+                print("Adding", file)
+            else:
+                print("Skipping", file)
 
     def get_content(self):
         return self.file_names_listbox.get(0, tk.END)
