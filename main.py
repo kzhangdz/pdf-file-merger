@@ -7,12 +7,9 @@ import sv_ttk # styling package
 from widgets.entry_with_placeholder import EntryWithPlaceholder
 
 from collections.abc import Callable
-from functools import partial # for callback functions in buttons, with arguments
 from pathlib import Path
 from pypdf import PdfWriter
-from typing import List, Dict
-
-#https://www.youtube.com/watch?v=VEdaDzI9rJM
+from typing import List
 
 DEFAULT_PADDING = 20
 DEFAULT_BUTTON_WIDTH = 7
