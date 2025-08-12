@@ -1,0 +1,3 @@
+pypdf
+sv-ttk
+tkinterdnd2
