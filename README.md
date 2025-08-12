@@ -1,6 +1,9 @@
 # pdf-file-merger
 PDF file merger application built using tkinter.
 
+## Requirements
+Execute `.\build.bat` from the command line. This will install all requirements and output an executable file in `\dist`. Run the `pdf-file-merger.exe` executable.
+
 ## Usage
 Add or drag pdf files into the central box, select an output directory, then press "Merge" to combine the files.
 
