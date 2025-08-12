@@ -92,6 +92,10 @@ class MainPage(ttk.Frame):
         if save_path == "":
             self.message.set("Please specify a save path")
             return
+
+        if not save_path.lower().endswith('.pdf'):
+            self.message.set("Must save to a pdf file")
+            return
         
         print("Merging Files")
         
